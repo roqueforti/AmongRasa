@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Among Rasa: The Cup We Share</title>
+
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper.js --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Lucide Icons --><script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/dist/lucide.min.js"></script>
+
+    <!-- Google Fonts: 'Inter' (sans-serif) dan 'Playfair Display' (serif) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- Konfigurasi Tailwind Kustom --><script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        'primary-bg': '#FFFFFF', // Putih Bersih
+                        'secondary-bg': '#F9FAFB', // Putih Keabu-abuan Sangat Terang
+                        'dark-text': '#111827', // Abu-abu Gelap (mendekati hitam)
+                        'accent-gold': '#C5983F', // Emas (warna spesifik yang diminta)
+                        'accent-gold-light': '#FBF8F2', // Emas SANGAT muda/lembut untuk BG Menu
+                        'light-gray': '#E5E7EB', // Abu-abu Sangat Terang untuk Border/Minor
+                        'medium-gray': '#6B7280', // Abu-abu Sedang untuk teks sekunder
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Style Kustom --><style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: theme('fontFamily.sans');
+            background-color: theme('colors.primary-bg');
+            color: theme('colors.dark-text');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: theme('fontFamily.serif');
+            color: theme('colors.dark-text');
+        }
+        /* === KODE DIHAPUS === */
+        /* .hero-swiper .swiper-slide { ... } */
+
+        /* === KODE DITAMBAHKAN: Latar belakang gradien halus untuk Hero === */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 50% 50%, theme('colors.accent-gold-light') 0%, theme('colors.primary-bg') 70%);
+            opacity: 0.5;
+            z-index: 0;
+        }
+        /* === AKHIR PERUBAHAN === */
+
+        .star-rating i {
+            fill: theme('colors.accent-gold');
+            color: theme('colors.accent-gold');
+        }
+        .object-pos-dzaky { object-position: center 20%; }
+        .object-pos-fahmi { object-position: center 30%; }
+        .object-pos-arlan { object-position: center 30%; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ====== Header / Navbar ====== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-5">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 bg-primary-bg/90 backdrop-blur-md shadow-lg rounded-full px-6 md:px-8">
+                <!-- Logo --><a href="#hero" class="flex-shrink-0 flex items-center gap-2">
+                    <img class="h-10 w-auto" src="img/LogoAmongRasa.png" alt="Among Rasa Logo" onerror="this.src='https://placehold.co/100x40/C5983F/FFFFFF?text=Among+Rasa'">
+                </a>
+
+                <!-- Navigasi Desktop -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#hero" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Beranda</a>
+                    <a href="#tentang" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Tentang</a>
+                    <a href="#nilai" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Nilai</a>
+                    <a href="#menu" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Menu</a>
+                    <a href="#tim" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Tim</a>
+                    <a href="#kontak" class="font-medium text-dark-text hover:bg-secondary-bg hover:text-accent-gold transition-colors text-base px-4 py-2 rounded-full">Kontak</a>
+                </nav>
+
+                <!-- Tombol Menu Mobile --><div class="md:hidden">
+                    <button id="menu-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-dark-text hover:text-accent-gold focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-gold" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Buka menu utama</span>
+                        <!-- Ikon Hamburger --><i id="icon-open" data-lucide="menu" class="block h-6 w-6"></i>
+                        <!-- Ikon Close --><i id="icon-close" data-lucide="x" class="hidden h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile (Dropdown) --><div class="hidden md:hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-2">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-bg shadow-lg rounded-2xl border border-light-gray">
+                    <a href="#hero" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Beranda</a>
+                    <a href="#tentang" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Tentang Kami</a>
+                    <a href="#nilai" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Nilai Kami</a>
+                    <a href="#menu" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Menu</a>
+                    <a href="#visi" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Visi & Misi</a>
+                    <a href="#tim" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Tim Kami</a>
+                    <a href="#kontak" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-dark-text hover:text-accent-gold hover:bg-secondary-bg">Kontak</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== Main Content ====== --><main>
+
+        <!-- === KODE DIGANTI: Hero Section Didesain Ulang === -->
+        <!-- 1. Section: Hero -->
+        <section id="hero" class="relative w-full overflow-hidden bg-primary-bg pt-48 pb-32">
+            <!-- Latar Belakang Gradien Halus -->
+            <div class="hero-bg"></div>
+            
+            <!-- Konten Teks -->
+            <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+                <!-- Pill Social Proof -->
+                <div class="inline-flex items-center gap-2 px-4 py-1 text-sm font-medium text-accent-gold bg-accent-gold-light rounded-full border border-accent-gold/30">
+                    <i data-lucide="star" class="h-4 w-4 fill-accent-gold"></i>
+                    <span>SLB YPAC KOTA MALANG</span>
+                </div>
+                
+                <h1 class="mt-4 text-5xl md:text-7xl font-serif font-extrabold leading-tight text-dark-text max-w-3xl">Among Rasa: The Cup We Share</h1>
+                <p class="mt-6 max-w-xl text-xl md:text-2xl text-medium-gray">
+                    Lebih dari sekadar kopi, sebuah kisah tentang inklusi, dedikasi, dan cita rasa.
+                </p>
+                <a href="#tentang" class="mt-10 px-8 py-3 bg-accent-gold hover:bg-dark-text text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                    Pelajari Lebih Lanjut
+                </a>
+            </div>
+
+            <!-- Galeri Gambar Hero -->
+            <div class="relative z-10 mt-24 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+                <img src="img/Hero/Hero (1).png" alt="Suasana kafe Among Rasa" class="w-full h-64 object-cover rounded-2xl shadow-lg border border-light-gray" onerror="this.src='https://placehold.co/400x300/D1D5DB/111827?text=Suasana+Kafe'">
+                <img src="img/Hero/Hero (2).jpg" alt="Proses membuat kopi" class="w-full h-64 object-cover rounded-2xl shadow-lg border border-light-gray" onerror="this.src='https://placehold.co/400x300/D1D5DB/111827?text=Membuat+Kopi'">
+                <img src="img/Hero/Hero (3).jpg" alt="Hasil kopi Among Rasa" class="w-full h-64 object-cover rounded-2xl shadow-lg border border-light-gray" onerror="this.src='https://placehold.co/400x300/D1D5DB/111827?text=Sajian+Kopi'">
+            </div>
+        </section>
+        <!-- === AKHIR PERUBAHAN === -->
+
+
+        <!-- === KODE DIGANTI: Menggunakan bg-secondary-bg dan layout baru === -->
+        <!-- 2. Section: Tentang Kami -->
+        <section id="tentang" class="py-24 bg-secondary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Konten Teks Tentang -->
+                <div class="max-w-3xl mx-auto text-center">
+                    <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide">Merawat Rasa, Membuka Kesempatan</span>
+                    <h2 class="mt-2 text-4xl md:text-5xl font-serif font-bold text-dark-text">Tentang Among Rasa</h2>
+                    <p class="mt-6 text-lg text-medium-gray leading-relaxed">
+                        <strong>Among Rasa</strong> lahir dari dua kata. "Among" (Bahasa Jawa) yang berarti merawat atau membimbing, dan "Rasa" yang bermakna kepekaan indera dan perasaan.
+                    </p>
+                    <p class="mt-4 text-lg text-medium-gray leading-relaxed">
+                        Kami adalah ruang kolaborasi yang berawal dari kepedulian terhadap masa depan lulusan SLB YPAC Kota Malang. Among Rasa hadir sebagai bukti bahwa keterbatasan bukanlah penghalang untuk berkarya. Kafe ini menjadi wadah pemberdayaan, tempat mereka mengasah keterampilan, menumbuhkan percaya diri, dan membuktikan potensi mereka kepada dunia.
+                    </p>
+                    <blockquote class="mt-8 pl-6 border-l-4 border-accent-gold text-dark-text text-left">
+                        <p class="text-xl italic font-serif font-medium">
+                            "Setiap cangkir kopi yang kami sajikan membawa cerita, nilai kemanusiaan, dan dedikasi yang tulus dari para barista hebat kami."
+                        </p>
+                    </blockquote>
+                </div>
+
+                <!-- Video Tentang Kami -->
+                <div class="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-light-gray shadow-md aspect-video bg-black">
+                    <video class="w-full h-full" poster="img/Hero/Hero (1).png" autoplay loop muted playsinline> 
+                        <source src="img/VideoTentangAmongRasa/TentangKami.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                </div>
+
+                <!-- Video After Movie (Digabung) -->
+                <div class="mt-16 max-w-4xl mx-auto text-center">
+                     <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text">Kisah Kami Dimulai</h2>
+                    <p class="mt-6 max-w-3xl mx-auto text-lg text-medium-gray leading-relaxed">
+                        Sebuah video perjalanan singkat tentang bagaimana Among Rasa dibangun dari sebuah ide menjadi ruang nyata untuk berkarya dan berbagi.
+                    </p>
+                </div>
+                <div class="mt-12 max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden border border-light-gray shadow-md">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/RCNqUToDhsc?start=8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+        <!-- === AKHIR PERUBAHAN === -->
+
+        <!-- === KODE DIHAPUS: Section After Movie digabung ke 'Tentang' === -->
+        <!-- <section id="after-movie" ... > ... </section> -->
+
+        <!-- === KODE DIGANTI: Menggunakan bg-primary-bg dan style kartu baru === -->
+        <!-- 4. Section: Nilai Kami -->
+        <section id="nilai" class="py-24 bg-primary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text text-center">Nilai-Nilai Kami</h2>
+                <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Kartu 1: Quality -->
+                    <div class="bg-secondary-bg p-8 rounded-2xl text-left border border-light-gray shadow-md">
+                        <i data-lucide="gem" class="h-12 w-12 text-accent-gold stroke-[1.5px]"></i>
+                        <h3 class="mt-6 text-2xl font-serif font-bold text-dark-text">Quality</h3>
+                        <p class="mt-4 text-medium-gray">
+                            Inklusi tidak berarti mengorbankan standar. Setiap sajian dibuat dengan bahan berkualitas dan dedikasi penuh.
+                        </p>
+                    </div>
+                    <!-- Kartu 2: Inclusivity -->
+                    <div class="bg-secondary-bg p-8 rounded-2xl text-left border border-light-gray shadow-md">
+                        <i data-lucide="heart-handshake" class="h-12 w-12 text-accent-gold stroke-[1.5px]"></i>
+                        <h3 class="mt-6 text-2xl font-serif font-bold text-dark-text">Inclusivity</h3>
+                        <p class="mt-4 text-medium-gray">
+                            Kami adalah ruang ramah bagi semua orang, memberi kesempatan yang sama untuk berkarya dan dihargai.
+                        </p>
+                    </div>
+                    <!-- Kartu 3: Community Impact -->
+                    <div class="bg-secondary-bg p-8 rounded-2xl text-left border border-light-gray shadow-md">
+                        <i data-lucide="users" class="h-12 w-12 text-accent-gold stroke-[1.5px]"></i>
+                        <h3 class="mt-6 text-2xl font-serif font-bold text-dark-text">Community Impact</h3>
+                        <p class="mt-4 text-medium-gray">
+                            Kami membangun jembatan antara komunitas disabilitas dan masyarakat luas, menciptakan kesadaran.
+                        </p>
+                    </div>
+                    <!-- Kartu 4: Sustainability -->
+                    <div class="bg-secondary-bg p-8 rounded-2xl text-left border border-light-gray shadow-md">
+                        <i data-lucide="leaf" class="h-12 w-12 text-accent-gold stroke-[1.5px]"></i>
+                        <h3 class="mt-6 text-2xl font-serif font-bold text-dark-text">Sustainability</h3>
+                        <p class="mt-4 text-medium-gray">
+                            Kami mengusung praktik berkelanjutan, dari bahan lokal hingga ekosistem bisnis yang bertahan jangka panjang.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- === AKHIR PERUBAHAN === -->
+
+        <!-- 5. Section: Menu Unggulan --><section id="menu" class="py-24 bg-secondary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text text-center">Menu Unggulan Kami</h2>
+                <p class="mt-6 max-w-2xl mx-auto text-center text-lg text-medium-gray">
+                    Dibuat dengan bahan-bahan pilihan dan sentuhan hati dari barista kami. Inilah rasa yang kami bagikan.
+                </p>
+                
+                <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- === KODE DIGANTI: rounded-2xl, shadow-md === -->
+                    <!-- Menu Card 1: Matchabiyyu --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/Matchabiyyu.png" alt="Matchabiyyu" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Matchabiyyu'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Matchabiyyu</h3>
+                            <p class="mt-2 text-medium-gray h-20">Perpaduan premium matcha dengan susu segar, menciptakan rasa yang creamy dan otentik.</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Card 2: Among Arum --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/AmongArum.png" alt="Among Arum" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Among+Arum'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Among Arum</h3>
+                            <p class="mt-2 text-medium-gray h-20">Kopi susu khas kami dengan aroma wangi yang unik, memberikan ketenangan dalam setiap tegukan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Card 3: Among Laras --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/AmongLaras.png" alt="Among Laras" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Among+Laras'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Among Laras</h3>
+                            <p class="mt-2 text-medium-gray h-20">Keseimbangan sempurna antara espresso yang kuat dan susu yang lembut, selaras di lidah.</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Card 4: Among Wening --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/AmongWening.png" alt="Among Wening" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Among+Wening'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Among Wening</h3>
+                            <p class="mt-2 text-medium-gray h-20">Rasa kopi yang jernih dan manis, seringkali dipadukan dengan karamel yang menggugah selera.</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Card 5: Lembayung --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/Lembayung.png" alt="Lembayung" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Lembayung'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Lembayung</h3>
+                            <p class="mt-2 text-medium-gray h-20">Kopi hitam klasik dengan karakter rasa yang kuat dan mendalam, seperti senja yang menenangkan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Card 6: Lembayung Arum --><div class="rounded-2xl overflow-hidden border border-light-gray shadow-md transition-transform transform hover:-translate-y-2">
+                        <div class="bg-accent-gold-light h-80 flex items-center justify-center p-8">
+                            <img src="img/Menu/LembayungArum.png" alt="Lembayung Arum" class="max-h-full w-auto object-contain drop-shadow-md" onerror="this.src='https://placehold.co/300x300/FBF8F2/C5983F?text=Lembayung+Arum'">
+                        </div>
+                        <div class="p-6 bg-primary-bg">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Lembayung Arum</h3>
+                            <p class="mt-2 text-medium-gray h-20">Perpaduan cokelat (chocolate) yang kaya dengan aroma wangi, menghangatkan hati.</p>
+                        </div>
+                    </div>
+                    <!-- === AKHIR PERUBAHAN === -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Section: Visi & Misi --><section id="visi" class="py-24 bg-primary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md === -->
+                <div class="grid lg:grid-cols-2 gap-16 items-start p-8 md:p-12 rounded-2xl border border-light-gray bg-secondary-bg shadow-md">
+                    <!-- Konten 1 (Visi) --><div class="text-center lg:text-left">
+                        <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide">Panduan Kami</span>
+                        <h2 class="mt-2 text-4xl font-serif font-bold text-dark-text">Visi Kami</h2>
+                        <p class="mt-6 text-3xl italic font-serif font-medium text-medium-gray leading-snug">
+                            "Menjadi kafe inklusif yang terdepan dalam menghadirkan cita rasa, rasa kemanusiaan, dan kesempatan yang setara bagi semua."
+                        </p>
+                    </div>
+                    <!-- Konten 2 (Misi) --><div>
+                        <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide text-center block lg:text-left">Tujuan Kami</span>
+                        <h2 class="mt-2 text-4xl font-serif font-bold text-dark-text text-center lg:text-left">Misi Kami</h2>
+                        <div class="mt-8 grid sm:grid-cols-2 gap-6">
+                            <!-- Misi 1 --><div class="bg-primary-bg p-6 rounded-2xl border border-light-gray flex items-start gap-4 shadow-sm">
+                                <i data-lucide="briefcase" class="h-8 w-8 text-accent-gold flex-shrink-0 mt-1 stroke-[1.5px]"></i>
+                                <span class="text-dark-text">Membangun ruang kerja inklusif dan memberikan pelatihan profesional bagi teman-teman disabilitas YPAC.</span>
+                            </div>
+                            <!-- Misi 2 --><div class="bg-primary-bg p-6 rounded-2xl border border-light-gray flex items-start gap-4 shadow-sm">
+                                <i data-lucide="coffee" class="h-8 w-8 text-accent-gold flex-shrink-0 mt-1 stroke-[1.5px]"></i>
+                                <span class="text-dark-text">Menyajikan produk berkualitas dengan sentuhan kemanusiaan, ketulusan, dan rasa bangga.</span>
+                            </div>
+                            <!-- Misi 3 --><div class="bg-primary-bg p-6 rounded-2xl border border-light-gray flex items-start gap-4 shadow-sm">
+                                <i data-lucide="message-square" class="h-8 w-8 text-accent-gold flex-shrink-0 mt-1 stroke-[1.5px]"></i>
+                                <span class="text-dark-text">Menjadi wadah edukasi dan kolaborasi sosial yang mempertemukan berbagai lapisan masyarakat.</span>
+                            </div>
+                            <!-- Misi 4 --><div class="bg-primary-bg p-6 rounded-2xl border border-light-gray flex items-start gap-4 shadow-sm">
+                                <i data-lucide="sparkles" class="h-8 w-8 text-accent-gold flex-shrink-0 mt-1 stroke-[1.5px]"></i>
+                                <span class="text-dark-text">Menumbuhkan kesadaran publik tentang potensi komunitas disabilitas, melihat kemampuan bukan keterbatasan.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Section: Apa Kata Mereka (Testimonials) --><section id="testimonials" class="py-24 bg-secondary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text text-center">Apa Kata Mereka</h2>
+                <div class="mt-16 grid md:grid-cols-3 gap-8">
+                    <!-- === KODE DIGANTI: rounded-2xl, shadow-md === -->
+                    <!-- Testimoni 1 --><div class="bg-primary-bg p-8 rounded-2xl flex flex-col border border-light-gray shadow-md">
+                        <div class="flex star-rating">
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                        </div>
+                        <blockquote class="mt-4 text-dark-text italic text-lg flex-grow font-serif">
+                            "Kopinya enak, tempatnya nyaman, dan yang paling penting, misinya luar biasa. Senang sekali bisa mendukung tempat seperti ini."
+                        </blockquote>
+                        <p class="mt-6 font-semibold text-medium-gray">- Pengunjung Setia</p>
+                    </div>
+                    <!-- Testimoni 2 --><div class="bg-primary-bg p-8 rounded-2xl flex flex-col border border-light-gray shadow-md">
+                        <div class="flex star-rating">
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                        </div>
+                        <blockquote class="mt-4 text-dark-text italic text-lg flex-grow font-serif">
+                            "Barista-baristanya ramah dan profesional. Saya belajar banyak tentang inklusivitas di sini. Sangat menginspirasi!"
+                        </blockquote>
+                        <p class="mt-6 font-semibold text-medium-gray">- Mitra Komunitas</p>
+                    </div>
+                    <!-- Testimoni 3 --><div class="bg-primary-bg p-8 rounded-2xl flex flex-col border border-light-gray shadow-md">
+                        <div class="flex star-rating">
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                            <i data-lucide="star" class="h-5 w-5"></i>
+                        </div>
+                        <blockquote class="mt-4 text-dark-text italic text-lg flex-grow font-serif">
+                            "Tempat 'healing' terbaik. Kopi dan ceritanya sama-sama menghangatkan hati. Sukses selalu untuk Among Rasa!"
+                        </blockquote>
+                        <p class="mt-6 font-semibold text-medium-gray">- Pelanggan Baru</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Section: Instagram Feed --><section id="instagram-feed" class="py-24 bg-primary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md, bg-secondary-bg === -->
+                <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center p-8 md:p-12 rounded-2xl border border-light-gray bg-secondary-bg shadow-md">
+                    <!-- Kolom 1 (Teks) --><div>
+                        <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide">Terhubung Dengan Kami</span>
+                        <h2 class="mt-2 text-4xl md:text-5xl font-serif font-bold text-dark-text">Ikuti Kisah Kami</h2>
+                        <p class="mt-6 text-lg text-medium-gray leading-relaxed">
+                            Lihat lebih dekat keseharian para barista kami, sajian terbaru, dan momen-momen hangat di Among Rasa. Ikuti kami untuk menjadi bagian dari perjalanan ini.
+                        </p>
+                        <div class="mt-8 flex flex-wrap gap-4">
+                            <!-- Tombol Instagram @amongrasa -->
+                            <a href="https://www.instagram.com/amongrasa_/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent-gold hover:bg-dark-text text-white font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                                <i data-lucide="instagram" class="h-5 w-5 fill-white stroke-white stroke-[1.5px]"></i>
+                                @amongrasa
+                            </a>
+                             <!-- Tombol Instagram @mandala_purelove -->
+                            <a href="https://www.instagram.com/mandala_purelove/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-light-gray text-dark-text font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                                <i data-lucide="instagram" class="h-5 w-5 stroke-[1.5px]"></i>
+                                @mandala_purelove
+                            </a>
+                        </div>
+                        <p class="mt-4 text-sm text-medium-gray opacity-70">*Bagian ini adalah placeholder untuk API feed Instagram.</p>
+                    </div>
+                    <!-- Kolom 2 (Gambar) --><div class="grid grid-cols-3 grid-rows-2 gap-2 aspect-square rounded-2xl overflow-hidden border border-light-gray">
+                        <img src="img/IkutiKisahKami/KisahKami (1).png" alt="Instagram Post 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+1'">
+                        <img src="img/IkutiKisahKami/KisahKami (2).png" alt="Instagram Post 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+2'">
+                        <img src="img/IkutiKisahKami/KisahKami (3).png" alt="Instagram Post 3" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+3'">
+                        <img src="img/IkutiKisahKami/KisahKami (4).png" alt="Instagram Post 4" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+4'">
+                        <img src="img/IkutiKisahKami/KisahKami (5).png" alt="Instagram Post 5" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+5'">
+                        <img src="img/IkutiKisahKami/KisahKami (6).png" alt="Instagram Post 6" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x200/D1D5DB/111827?text=Post+6'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Section: Tim Kami --><section id="tim" class="py-24 bg-secondary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text text-center">Orang di Balik Among Rasa</h2>
+
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md, bg-primary-bg === -->
+                <!-- Sub-section 1: Barista Muda --><div class="mt-20 bg-primary-bg p-8 md:p-12 rounded-2xl border border-light-gray shadow-md">
+                    <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide text-center block">Wajah Inklusif Kami</span>
+                    <h3 class="mt-2 text-3xl font-serif font-bold text-dark-text text-center">Barista Muda</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-center text-lg text-medium-gray">
+                        Barista muda kami adalah teman-teman dari SLB YPAC Kota Malang yang telah melalui pelatihan profesional dengan penuh semangat dan dedikasi.
+                    </p>
+                    <div class="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        <!-- Tim Card: Dzaky A. W. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Dzaky.png" alt="Foto Dzaky A. W." class="w-full h-full object-cover object-pos-dzaky" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Dzaky'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">Dzaky A. W.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Down Syndrome</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tim Card: M. Fahmi A. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Fahmi.png" alt="Foto M. Fahmi A." class="w-full h-full object-cover object-pos-fahmi" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Fahmi'">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">M. Fahmi A.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Slow Learner</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tim Card: Arlando M. W. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Arlan.png" alt="Foto Arlando M. W." class="w-full h-full object-cover object-pos-arlan" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Arlando'">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">Arlando M. W.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Tunagrahita Ringan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tim Card: Ajwa Achmad Z. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Ajwa.png" alt="Foto Ajwa Achmad Z." class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Ajwa'">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">Ajwa Achmad Z.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Tunadaksa</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tim Card: Muhamad Arif S. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Arif.png" alt="Foto Muhamad Arif S." class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Arif'">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">Muhamad Arif S.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Tunadaksa</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tim Card: A. Firdaus R. --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/BaristaMuda/Firdaus.png" alt="Foto A. Firdaus R." class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Firdaus'">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6">
+                                    <h4 class="text-xl font-serif font-bold text-white">A. Firdaus R.</h4>
+                                    <p class="mt-1 text-white/90 font-semibold">Down Syndrome</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-section 2: Pendamping & Mitra (BENTO GRID) --><div class="mt-20 bg-primary-bg p-8 md:p-12 rounded-2xl border border-light-gray shadow-md">
+                    <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide text-center block">Para Pembimbing</span>
+                    <h3 class="mt-2 text-3xl font-serif font-bold text-dark-text text-center">Pendamping & Mitra</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-center text-lg text-medium-gray">
+                        Dipandu oleh para guru, pengurus yayasan, dan mitra profesional yang berdedikasi untuk membimbing dan memastikan kualitas.
+                    </p>
+                    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 grid-flow-dense">
+                        
+                        <!-- Card 1: Kepala Sekolah (1x1) --><div class="lg:col-span-1 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/ZITA MARGARETHA SITI MASRUROH S.Pd. Gr. KepalaSekolah.JPG" alt="Foto Zita Margaretha" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Zita+M.'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Zita Margaretha S. M.</h4>
+                                        <p class="mt-1 text-white/90">Kepala Sekolah YPAC</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2: Yayasan (2x1) --><div class="lg:col-span-2 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Yayasan.JPEG" alt="Foto Yayasan YPAC" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/111827?text=Yayasan+YPAC'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Yayasan YPAC Malang</h4>
+                                        <p class="mt-1 text-white/90">Pembina</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Ravelia S. (1x1) --><div class="lg:col-span-1 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Ravelia Saktiasari, S.Pd. PengurusKafe.JPG" alt="Foto Ravelia Saktiasari" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Ravelia+S.'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Ravelia Saktiasari, S.Pd.</h4>
+                                        <p class="mt-1 text-white/90">Pengurus Kafe Among Rasa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Guru YPAC (2x1) --><div class="lg:col-span-2 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Guru YPAC (1).JPG" alt="Foto Guru-Guru YPAC" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/111827?text=Guru+YPAC'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Guru-Guru YPAC</h4>
+                                        <p class="mt-1 text-white/90">Tim Pendamping</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Dewi A. (1x1) --><div class="lg:col-span-1 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Dewi Andini, S.Pd PengurusKafe.JPG" alt="Foto Dewi Andini" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Dewi+A.'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Dewi Andini, S.Pd.</h4>
+                                        <p class="mt-1 text-white/90">Pengurus Kafe Among Rasa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Lilik K. (1x1) --><div class="lg:col-span-1 h-80">
+                             <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Lilik Kurniyaru, S.Pd. PengurusKafe.JPG" alt="Foto Lilik Kurniyaru" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Lilik+K.'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Lilik Kurniyaru, S.Pd.</h4>
+                                        <p class="mt-1 text-white/90">Pengurus Kafe Among Rasa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 7: Syauqi (2x1) --><div class="lg:col-span-2 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Syauqi - OwnerSabiCoffee.WEBP" alt="Foto Syauqi" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/111827?text=Syauqi'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Syauqi</h4>
+                                        <p class="mt-1 text-white/90">Mitra Profesional (Owner Sabi Coffee)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 8: Abiyyu R. P. (2x1) --><div class="lg:col-span-2 h-80">
+                            <div class="relative group w-full h-full rounded-2xl overflow-hidden border border-light-gray">
+                                <img src="img/Pendamping & Mitra/Abiyyu-KakakAsuh.JPG" alt="Foto Abiyyu R. P." class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/D1D5DB/111827?text=Abiyyu+R.P.'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div class="absolute bottom-0 left-0 p-6">
+                                        <h4 class="text-xl font-serif font-bold text-white">Abiyyu R. P.</h4>
+                                        <p class="mt-1 text-white/90">Kakak Asuh & Mentor</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Sub-section 3: Tim Mandala --><div class="mt-20 bg-primary-bg p-8 md:p-12 rounded-2xl border border-light-gray shadow-md">
+                    <span class="text-accent-gold font-semibold uppercase text-sm tracking-wide text-center block">Pendukung Kami</span>
+                    <h3 class="mt-2 text-3xl font-serif font-bold text-dark-text text-center">Tim Mandala</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-center text-lg text-medium-gray">
+                        Tim program Community Empowerment dari Beswan Djarum Malang 2024/2025 yang menginisiasi dan mengembangkan proyek Among Rasa.
+                    </p>
+                    <p class="mt-2 text-center text-xl text-dark-text font-serif italic">"With Love from Mandala #PureLove"</p>
+                    <div class="mt-12 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                        <!-- Kartu Tim Mandala 1: Satria --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Satria.png" alt="Foto Satria Dwi Rahmad Ali" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Satria'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Satria Dwi Rahmad Ali</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Project Leader</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 2: Larasati --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Larasati.png" alt="Foto Larasati Puspita Candra Dewi" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Larasati'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Larasati Puspita Candra Dewi</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Humas & Media</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">Politeknik Negeri Malang</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 3: Ima --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                           <img src="img/TimMandala/Ima.png" alt="Foto Ima Imsiatul Nadhifah" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Ima'">
+                           <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                   <h4 class="text-lg font-serif font-bold text-white">Ima Imsiatul Nadhifah</h4>
+                                   <p class="mt-1 text-sm text-white/90 font-semibold">Divisi SDM</p>
+                                   <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Islam Malang</p>
+                                </div>
+                           </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 8: Danial --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                           <img src="img/TimMandala/Danial.png" alt="Foto Danial Safaraz Zafri Baidhowi" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Danial'">
+                           <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                   <h4 class="text-lg font-serif font-bold text-white">Danial Safaraz Zafri Baidhowi</h4>
+                                   <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Digital Marketing</p>
+                                   <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                           </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 9: Riko --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Riko.png" alt="Foto Riko Nur Yuliansyah" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Riko'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Riko Nur Yuliansyah</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Desain Kreatif</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Baris Bawah -->
+                        <!-- Kartu Tim Mandala 6: Rizqy --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Adel.png" alt="Foto Rizqy Adelia Putri" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Adel'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Rizqy Adelia Putri</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Event & Kemitraan</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 7: Amirur --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Rosyid.png" alt="Foto Moh. Amirur Rosyidin" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Rosyid'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Moh. Amirur Rosyidin</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Riset & Pengembangan</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 10: Hilman --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Hilman.png" alt="Foto Hilman Zahrawa Budiarto" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Hilman'">
+                           <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                   <h4 class="text-lg font-serif font-bold text-white">Hilman Zahrawa Budiarto</h4>
+                                   <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Edukasi & Pelatihan</p>
+                                   <p class="mt-1 text-xs text-white/80 opacity-80">Politeknik Negeri Malang</p>
+                                </div>
+                           </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 4: Venezia --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Venezia.png" alt="Foto Venezia Reza" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Venezia'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                    <h4 class="text-lg font-serif font-bold text-white">Venezia Reza</h4>
+                                    <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Keuangan</p>
+                                    <p class="mt-1 text-xs text-white/80 opacity-80">STIE Malangkuçeçwara</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kartu Tim Mandala 5: Hisyam --><div class="h-80 relative group w-full rounded-2xl overflow-hidden border border-light-gray">
+                            <img src="img/TimMandala/Hisyam.png" alt="Foto Hisyam Hibatur Rahman" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/D1D5DB/111827?text=Hisyam'">
+                           <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <div class="absolute bottom-0 left-0 p-6 text-left">
+                                   <h4 class="text-lg font-serif font-bold text-white">Hisyam Hibatur Rahman</h4>
+                                   <p class="mt-1 text-sm text-white/90 font-semibold">Divisi Operasional</p>
+                                   <p class="mt-1 text-xs text-white/80 opacity-80">Universitas Brawijaya</p>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Section: Supporters --><section id="supporters" class="pt-16 pb-24 bg-primary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-serif font-bold text-dark-text text-center">Didukung Penuh Oleh</h2>
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md, bg-secondary-bg === -->
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center bg-secondary-bg p-8 rounded-2xl border border-light-gray shadow-md">
+                    <img src="img/LogoDjarumFoundation.png" alt="Djarum Foundation Logo" class="max-h-16 w-auto object-contain transition-all" onerror="this.src='https://placehold.co/200x64/F9FAFB/111827?text=Djarum+Foundation'">
+                    <img src="img/LogoDBP.png" alt="Djarum Beasiswa Plus Logo" class="max-h-16 w-auto object-contain transition-all" onerror="this.src='https://placehold.co/200x64/F9FAFB/111827?text=Beasiswa+Plus'">
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                        <img src="img/LogoCommunityEmpowerment.png" alt="Community Empowerment Logo" class="max-h-16 w-auto object-contain transition-all" onerror="this.src='https://placehold.co/200x64/F9FAFB/111827?text=Comdev'">
+                    </a>
+                    <img src="img/LogoMandala.png" alt="Tim Mandala Logo" class="max-h-16 w-auto object-contain transition-all" onerror="this.src='https://placehold.co/200x64/F9FAFB/111827?text=Mandala'">
+                    <img src="img/LogoSLBYPACMalang.png" alt="SLB YPAC Malang Logo" class="max-h-16 w-auto object-contain transition-all" onerror="this.src='https://placehold.co/200x64/F9FAFB/111827?text=YPAC+Malang'">
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. Section: Review CTA --><section id="review" class="py-24 bg-secondary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md === -->
+                <div class="bg-primary-bg max-w-3xl mx-auto text-center p-12 rounded-2xl border border-light-gray shadow-md">
+                    <h2 class="text-3xl font-serif font-bold text-dark-text">Bagikan Pengalaman Anda</h2>
+                    <p class="mt-4 text-lg text-medium-gray">
+                        Ulasan Anda sangat berarti bagi kami. Bantu kami untuk terus berkembang dan menyebarkan semangat inklusivitas.
+                    </op>
+                    <div class="flex justify-center my-6 space-x-1 star-rating">
+                        <i data-lucide="star" class="h-8 w-8"></i>
+                        <i data-lucide="star" class="h-8 w-8"></i>
+                        <i data-lucide="star" class="h-8 w-8"></i>
+                        <i data-lucide="star" class="h-8 w-8"></i>
+                        <i data-lucide="star" class="h-8 w-8"></i>
+                    </div>
+                    <!-- Tautan ulasan Google Maps tidak diubah karena kemungkinan merujuk ke entitas utama SLB YPAC -->
+                    <a href="https://maps.app.goo.gl/pCa4MrpdFeHfeqHBA" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block px-8 py-3 bg-accent-gold hover:bg-dark-text text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105">
+                        Tulis Ulasan di Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 12. Section: Kontak & Lokasi --><section id="kontak" class="py-24 bg-primary-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-text text-center">Kunjungi Kami</h2>
+                <!-- === KODE DIGANTI: rounded-2xl, shadow-md, bg-secondary-bg === -->
+                <div class="mt-12 bg-secondary-bg rounded-2xl overflow-hidden grid md:grid-cols-2 border border-light-gray shadow-md">
+                    <!-- Kolom 1 (Peta) --><div class="relative w-full h-80 md:h-full min-h-[400px]">
+                        <!-- === KODE DIGANTI: URL Embed Google Maps diubah === -->
+                        <iframe 
+                            class="absolute inset-0 w-full h-full"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.341819584013!2d112.6293523153304!3d-7.96229799426618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e788279864a7577%3A0x1ebf67d4727140b!2sJl.%20Tumenggung%20Suryo%20No.39%2C%20Bunulrejo%2C%20Kec.%20Blimbing%2C%20Kota%20Malang%2C%20Jawa%20Timur%2065122!5e0!3m2!1sid!2sid!4v1730071158000!5m2!1sid!2sid" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                         <!-- === AKHIR PERUBAHAN === -->
+                    </div>
+                    <!-- Kolom 2 (Info) --><div class="p-8 md:p-12">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Lokasi</h3>
+                             <!-- === KODE DIGANTI: Teks alamat diubah === -->
+                            <p class="mt-2 text-lg text-medium-gray">
+                                Parkiran Belakang SLB YPAC Kota Malang, Jl. Tumenggung Suryo No.39, Bunulrejo, Kec. Blimbing, Kota Malang, Jawa Timur 65122
+                            </p>
+                             <!-- === AKHIR PERUBAHAN === -->
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-serif font-bold text-dark-text">Jam Operasional</h3>
+                            <ul class="mt-2 text-lg text-medium-gray space-y-1">
+                                <li><strong>Senin - Jumat:</strong> 09.00 - 14.30 WIB</li>
+                                <li><strong>Sabtu - Minggu:</strong> Tutup</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <!-- <h3 class="text-2xl font-serif font-bold text-dark-text">Ikuti Kami</h3> -->
+                            <div class="mt-4 flex space-x-6">
+                                <a href="https://www.instagram.com/amongrasa_/" target="_blank" rel="noopener noreferrer" class="text-dark-text hover:text-accent-gold transition-colors">
+                                    <i data-lucide="instagram" class="h-8 w-8 stroke-[1.5px]"></i>
+                                </a>
+                                <a href="#" class="text-dark-text hover:text-accent-gold transition-colors">
+                                    <i data-lucide="facebook" class="h-8 w-8 stroke-[1.5px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== Footer ====== --><footer class="bg-dark-text text-light-gray py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center gap-6">
+            <img class="h-12 w-auto" src="img/LogoAmongRasa.png" alt="Among Rasa Logo (Footer)" onerror="this.src='https://placehold.co/100x48/111827/FFFFFF?text=Among+Rasa'">
+            <p class="text-xl font-serif font-semibold tracking-wider text-accent-gold">The Cup We Share</p>
+            <p class="text-light-gray">
+                Dibuat dengan sepenuh hati oleh
+                <span class="font-bold text-white">Tim Mandala #PureLove</span>
+            </p>
+            <p class="text-sm text-medium-gray">
+                Didukung oleh <span class="font-semibold">DJARUM FOUNDATION</span>
+            </p>
+            <p class="mt-4 text-sm text-medium-gray opacity-60">
+                © 2025 Among Rasa. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ====== Skrip JavaScript ====== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inisialisasi Lucide Icons
+            try {
+                 lucide.createIcons();
+                 console.log("Lucide icons created successfully."); // Konfirmasi
+            } catch (error) {
+                 console.error("Error creating Lucide icons:", error);
+            }
+
+
+            // Logika Menu Mobile
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('icon-open');
+            const iconClose = document.getElementById('icon-close');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            if (menuToggle && mobileMenu && iconOpen && iconClose) {
+                menuToggle.addEventListener('click', () => {
+                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                    menuToggle.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('hidden');
+                    iconOpen.classList.toggle('hidden');
+                    iconClose.classList.toggle('hidden');
+                });
+
+                // Tutup menu saat link di-klik
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        mobileMenu.classList.add('hidden');
+                        iconOpen.classList.remove('hidden');
+                        iconClose.classList.add('hidden');
+                    });
+                });
+            } else {
+                 console.error("Mobile menu elements not found");
+            }
+
+            // === KODE DIHAPUS: Swiper untuk Hero lama dihapus ===
+            /*
+            if (typeof Swiper !== 'undefined') {
+                try {
+                    var swiper = new Swiper(".hero-swiper", { ... });
+                     console.log("Swiper instance created:", swiper);
+                } catch (error) {
+                    console.error("Error initializing Swiper:", error);
+                }
+            } else {
+                console.error("Swiper library is not loaded.");
+            }
+            */
+            // === AKHIR PERUBAHAN ===
+
+
+            // Tambahkan onerror fallback untuk semua gambar
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.onerror) { 
+                    img.onerror = function() {
+                        const altText = this.alt || 'Gambar Rusak';
+                        const width = this.naturalWidth > 0 ? this.naturalWidth : (this.width || 400);
+                        const height = this.naturalHeight > 0 ? this.naturalHeight: (this.height || 400);
+                        
+                        if (this.closest('.bg-accent-gold-light')) {
+                             this.src = `https://placehold.co/${width}x${height}/FBF8F2/C5983F?text=${encodeURIComponent(altText)}`;
+                        } 
+                        else if (this.closest('header')) {
+                             this.src = `https://placehold.co/100x40/FFFFFF/C5983F?text=Among+Rasa`;
+                        }
+                        else if (this.closest('footer')) {
+                             this.src = `https://placehold.co/100x48/111827/FFFFFF?text=Among+Rasa`;
+                        }
+                        else if (this.closest('#supporters')) {
+                             this.src = `https://placehold.co/200x64/F9FAFB/111827?text=${encodeURIComponent(altText)}`;
+                        }
+                        else {
+                           this.src = `https://placehold.co/${width}x${height}/D1D5DB/111827?text=${encodeURIComponent(altText)}`;
+                        }
+                        this.onerror = null; 
+                    };
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
+
